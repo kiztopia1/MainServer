@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Create GET request
 app.get("/", (req, res) => {
-  res.send("Express on");
+  res.send("Express ");
 });
 
 // addBot
@@ -123,7 +123,7 @@ app.get('/bots', function(req, res, next) {
 
 
 // getCommands
-app.get('/getCommands/:id', function(req, res, next) {
+app.get('/getCommand/:id', function(req, res, next) {
   const id = req.params.id ;
   
   async function connect() {
@@ -131,8 +131,9 @@ app.get('/getCommands/:id', function(req, res, next) {
     .then(() => {
       Bot.findOne({id: id})
   .then(bot => {
+    const command = bot.command
 
-    res.send(bot.command);
+    res.send(command);
   })
     })
     
@@ -151,8 +152,8 @@ app.get('/getResponse/:id', function(req, res, next) {
     .then(() => {
       Bot.findOne({id: id})
   .then(bot => {
-
-    res.send(bot.response);
+    const response = bot.response
+    res.send(response);
   })
     })
     
