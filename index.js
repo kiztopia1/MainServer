@@ -31,7 +31,7 @@ app.post('/addBot/:id', function(req, res) {
     bot.save()
     .then(bot => {
       
-      res.end();
+      res.json({"response":bot});
   })
     })
     
