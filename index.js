@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require('body-parser')
 // Initialize Express
 const app = express();
+app.use(express.json());
 const mongoose = require('mongoose');
 const Bot = require('./models/bot');
 
@@ -19,7 +20,7 @@ app.get("/", (req, res) => {
 app.post('/addBot/:id', function(req, res) {
   const id = req.params.id ;
   const name = req.body.name
-  console.log(req.body)
+  
   async function connect() {
     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
     .then(dbRes => {
@@ -46,10 +47,10 @@ app.post('/addCommand/:id', function(req, res, next) {
   const id = req.params.id ;
   console.log(id)
 
+  console.log(req.body.command)
   async function connect() {
     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
     .then(dbRes => {
-      
       Bot.findOneAndUpdate({id: id}, {command: req.body.command})
   .then(response => {
 
