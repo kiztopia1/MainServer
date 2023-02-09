@@ -1,8 +1,14 @@
 // Add Express
 const express = require("express");
-
+const bodyParser = require('body-parser')
 // Initialize Express
 const app = express();
+const mongoose = require('mongoose');
+const Bot = require('./models/bot');
+
+
+// body parser for the post requests
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Create GET request
 app.get("/", (req, res) => {
@@ -10,69 +16,129 @@ app.get("/", (req, res) => {
 });
 
 // addBot
-app.post('/addBot/:id', function(req, res, next) {
+app.post('/addBot/:id', function(req, res) {
   const id = req.params.id ;
-
-  const bot = new Bot({
-      id: id, 
-      name: req.body.name,
-  })
-  bot.save()
-  .then(bot => {
-
+  const name = req.body.name
+  console.log(req.body)
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(dbRes => {
+      const bot = new Bot({
+        id: id, 
+        name: req.body.name,
+    })
+    bot.save()
+    .then(bot => {
+      
       res.end();
   })
+    })
+    
+  }
+   connect();
+
+  
+  
 });
 
 // add command
 app.post('/addCommand/:id', function(req, res, next) {
   const id = req.params.id ;
   console.log(id)
-  Bot.findOneAndUpdate({id: id}, {command: req.body.command})
+
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(dbRes => {
+      
+      Bot.findOneAndUpdate({id: id}, {command: req.body.command})
   .then(response => {
 
       res.end()
   })
+
+    })
+    
+  }
+   connect();
+
+  
 });
 
 // addResponse
 app.post('/addResponse/:id', function(req, res, next) {
   const id = req.params.id ;
-  console.log(id)
-  Bot.findOneAndUpdate({id: id}, {response: req.body.response})
-  .then(response => {
+  
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Bot.findOneAndUpdate({id: id}, {response: req.body.response})
+  .then(() => {
 
       res.end()
   })
+    })
+    
+  }
+   connect();
+
+  
 });
 
 //bot
 app.get('/bot/:id', function(req, res, next) {
   const id = req.params.id ;
-  Bot.findOne({id: id})
+
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Bot.findOne({id: id})
   .then(bot => {
     res.json({"response": bot})
     })
+    })
+    
+  }
+   connect();
+
+  
 });
 
 //bots
 app.get('/bots', function(req, res, next) {
-  Bot.find()
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Bot.find()
   .then(bots => {
     res.json({"response": bots})
   })
+    })
+    
+  }
+   connect();
+
+ 
 });
 
 
 // getCommands
 app.get('/getCommands/:id', function(req, res, next) {
   const id = req.params.id ;
-  console.log(id)
-  Bot.findOne({id: id})
+  
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Bot.findOne({id: id})
   .then(response => {
 
       res.json({"response": response.command})
   })
+    })
+    
+  }
+   connect();
+
+  
 });
 
 
