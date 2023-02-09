@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Create GET request
 app.get("/", (req, res) => {
-  res.send("Express on Vercel");
+  res.send("Express on");
 });
 
 // addBot
@@ -31,7 +31,7 @@ app.post('/addBot/:id', function(req, res) {
     bot.save()
     .then(bot => {
       
-      res.json({"response":bot});
+      res.send("success");
   })
     })
     
@@ -54,7 +54,7 @@ app.post('/addCommand/:id', function(req, res, next) {
       Bot.findOneAndUpdate({id: id}, {command: req.body.command})
   .then(response => {
 
-      res.end()
+      res.send("success");
   })
 
     })
@@ -75,7 +75,7 @@ app.post('/addResponse/:id', function(req, res, next) {
       Bot.findOneAndUpdate({id: id}, {response: req.body.response})
   .then(() => {
 
-      res.end()
+    res.send("success");
   })
     })
     
@@ -130,9 +130,29 @@ app.get('/getCommands/:id', function(req, res, next) {
     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
     .then(() => {
       Bot.findOne({id: id})
-  .then(response => {
+  .then(bot => {
 
-      res.json({"response": response.command})
+    res.send(bot.command);
+  })
+    })
+    
+  }
+   connect();
+
+  
+});
+
+// getResponse
+app.get('/getResponse/:id', function(req, res, next) {
+  const id = req.params.id ;
+  
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Bot.findOne({id: id})
+  .then(bot => {
+
+    res.send(bot.response);
   })
     })
     
