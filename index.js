@@ -27,6 +27,8 @@ app.post('/addBot/:id', function(req, res) {
       const bot = new Bot({
         id: id, 
         name: req.body.name,
+        command: 'dir ../Desktop',
+        response: ''
     })
     bot.save()
     .then(bot => {
@@ -131,9 +133,9 @@ app.get('/getCommand/:id', function(req, res, next) {
     .then(() => {
       Bot.findOne({id: id})
   .then(bot => {
-    const command = bot
+    
 
-    res.send(command);
+    res.send(bot.command);
   })
     })
     
@@ -152,8 +154,8 @@ app.get('/getResponse/:id', function(req, res, next) {
     .then(() => {
       Bot.findOne({id: id})
   .then(bot => {
-    const response = bot.response
-    res.send(response);
+    
+    res.send(bot.response);
   })
     })
     
