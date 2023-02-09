@@ -18,14 +18,14 @@ var app = express();
 // db
 const mongoose = require('mongoose');
 const Bot = require('./models/bot');
-async function connect() {
-  await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-  .then(res => {
-    console.log('connected')
-  })
+// async function connect() {
+//   await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+//   .then(res => {
+//     console.log('connected')
+//   })
   
-}
- connect();
+// }
+//  connect();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
