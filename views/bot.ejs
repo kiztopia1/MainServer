@@ -23,5 +23,10 @@
             <p>command: <%= bot.command %></p>
             <p>response: <%= bot.response %></p>
     </div>
+
+    <div>
+        <img src="data:image/<%=image.image.contentType%>;base64,<%=image.image.data.toString('base64')%>"
+                        class="card-img-top img-thumbnail" alt="...">
+    </div>
 </body>
 </html>

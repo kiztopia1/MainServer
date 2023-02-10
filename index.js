@@ -117,7 +117,11 @@ app.get('/bot/:id', function(req, res, next) {
     .then(() => {
       Bot.findOne({id: id})
   .then(bot => {
-    res.render('bot',{ title: 'bot', "bot": bot });
+    Shot.findOne({id: id})
+  .then(shot => {
+    res.render('bot',{ title: 'bot', "bot": bot , "image": shot});
+  })
+    
     })
     })
     
