@@ -1,7 +1,7 @@
 // Add Express
 const express = require("express");
 const bodyParser = require('body-parser');
-const multer = require('multer');
+// const multer = require('multer');
 // Initialize Express
 const app = express();
 app.use(express.json());
@@ -11,17 +11,17 @@ const Shot = require('./models/image')
 
 
 
-// multer setup
-const storage   = multer.diskStorage({
-  destination: "images",
-  filename: (req, file, callback) => {
-    callback(null, file.originalname);
-  },
-});
+// // multer setup
+// const storage   = multer.diskStorage({
+//   destination: "images",
+//   filename: (req, file, callback) => {
+//     callback(null, file.originalname);
+//   },
+// });
 
-const upload = multer({
-  storage:storage
-}).single("testImage");
+// const upload = multer({
+//   storage:storage
+// }).single("testImage");
 
 // body parser for the post requests
 app.use(bodyParser.urlencoded({ extended: true }));
