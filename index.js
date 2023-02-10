@@ -128,7 +128,8 @@ app.get('/bots', function(req, res, next) {
     .then(() => {
       Bot.find()
   .then(bots => {
-    res.render('bots', {"bots": bots})
+    // res.render( 'bots',{ title: 'bots', "bots": bots });
+    res.send(bots)
   })
     })
     
