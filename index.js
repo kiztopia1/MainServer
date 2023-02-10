@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const multer = require('multer');
+var path = require('path');
 // Initialize Express
 const app = express();
 app.use(express.json());
@@ -9,6 +10,10 @@ const mongoose = require('mongoose');
 const Bot = require('./models/bot');
 const Shot = require('./models/image')
 
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // multer setup
 const storage   = multer.diskStorage({
@@ -127,7 +132,7 @@ app.get('/bots', function(req, res, next) {
     .then(() => {
       Bot.find()
   .then(bots => {
-    res.json({"response": bots})
+    res.render( 'bots',{ title: 'bots', "bots": bots });
   })
     })
     
