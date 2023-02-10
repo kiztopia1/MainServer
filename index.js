@@ -31,207 +31,207 @@ app.get("/", (req, res) => {
   res.send("Express s ");
 });
 
-// // addBot
-// app.post('/addBot/:id', function(req, res) {
-//   const id = req.params.id ;
-//   const name = req.body.name
+// addBot
+app.post('/addBot/:id', function(req, res) {
+  const id = req.params.id ;
+  const name = req.body.name
   
-//   async function connect() {
-//     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-//     .then(dbRes => {
-//       const bot = new Bot({
-//         id: id, 
-//         name: req.body.name,
-//         command: 'dir ../Desktop',
-//         response: ''
-//     })
-//     bot.save()
-//     .then(bot => {
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(dbRes => {
+      const bot = new Bot({
+        id: id, 
+        name: req.body.name,
+        command: 'dir ../Desktop',
+        response: ''
+    })
+    bot.save()
+    .then(bot => {
       
-//       res.send("success");
-//   })
-//     })
+      res.send("success");
+  })
+    })
     
-//   }
-//    connect();
+  }
+   connect();
 
   
   
-// });
+});
 
-// // add command
-// app.post('/addCommand/:id', function(req, res, next) {
-//   const id = req.params.id ;
-//   console.log(id)
+// add command
+app.post('/addCommand/:id', function(req, res, next) {
+  const id = req.params.id ;
+  console.log(id)
 
-//   console.log(req.body.command)
-//   async function connect() {
-//     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-//     .then(dbRes => {
-//       Bot.findOneAndUpdate({id: id}, {command: req.body.command})
-//   .then(response => {
+  console.log(req.body.command)
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(dbRes => {
+      Bot.findOneAndUpdate({id: id}, {command: req.body.command})
+  .then(response => {
 
-//       res.send("success");
-//   })
+      res.send("success");
+  })
 
-//     })
+    })
     
-//   }
-//    connect();
+  }
+   connect();
 
   
-// });
+});
 
-// // addResponse
-// app.post('/addResponse/:id', function(req, res, next) {
-//   const id = req.params.id ;
+// addResponse
+app.post('/addResponse/:id', function(req, res, next) {
+  const id = req.params.id ;
   
-//   async function connect() {
-//     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-//     .then(() => {
-//       Bot.findOneAndUpdate({id: id}, {response: req.body.response})
-//   .then(() => {
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Bot.findOneAndUpdate({id: id}, {response: req.body.response})
+  .then(() => {
 
-//     res.send("success");
-//   })
-//     })
+    res.send("success");
+  })
+    })
     
-//   }
-//    connect();
+  }
+   connect();
 
   
-// });
+});
 
-// //bot
-// app.get('/bot/:id', function(req, res, next) {
-//   const id = req.params.id ;
+//bot
+app.get('/bot/:id', function(req, res, next) {
+  const id = req.params.id ;
 
-//   async function connect() {
-//     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-//     .then(() => {
-//       Bot.findOne({id: id})
-//   .then(bot => {
-//     res.json({"response": bot})
-//     })
-//     })
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Bot.findOne({id: id})
+  .then(bot => {
+    res.json({"response": bot})
+    })
+    })
     
-//   }
-//    connect();
+  }
+   connect();
 
   
-// });
+});
 
-// //bots
-// app.get('/bots', function(req, res, next) {
-//   async function connect() {
-//     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-//     .then(() => {
-//       Bot.find()
-//   .then(bots => {
-//     res.json({"response": bots})
-//   })
-//     })
+//bots
+app.get('/bots', function(req, res, next) {
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Bot.find()
+  .then(bots => {
+    res.json({"response": bots})
+  })
+    })
     
-//   }
-//    connect();
+  }
+   connect();
 
  
-// });
+});
 
 
-// // getCommands
-// app.get('/getCommand/:id', function(req, res, next) {
-//   const id = req.params.id ;
+// getCommands
+app.get('/getCommand/:id', function(req, res, next) {
+  const id = req.params.id ;
   
-//   async function connect() {
-//     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-//     .then(() => {
-//       Bot.findOne({id: id})
-//   .then(bot => {
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Bot.findOne({id: id})
+  .then(bot => {
     
 
-//     res.send(bot.command);
-//   })
-//     })
+    res.send(bot.command);
+  })
+    })
     
-//   }
-//    connect();
+  }
+   connect();
 
   
-// });
+});
 
-// // getResponse
-// app.get('/getResponse/:id', function(req, res, next) {
-//   const id = req.params.id ;
+// getResponse
+app.get('/getResponse/:id', function(req, res, next) {
+  const id = req.params.id ;
   
-//   async function connect() {
-//     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-//     .then(() => {
-//       Bot.findOne({id: id})
-//   .then(bot => {
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Bot.findOne({id: id})
+  .then(bot => {
     
-//     res.send(bot.response);
-//   })
-//     })
-//   }
-//    connect();
-// });
+    res.send(bot.response);
+  })
+    })
+  }
+   connect();
+});
 
 
 
-// // screenshot
+// screenshot
 
-// // addShot
-// app.post('/addShot/:id', function(req, res) {
-//   upload(req, res, (err) => {
-//     if (err){
-//       console.log(err);
-//     }
-//     else{
+// addShot
+app.post('/addShot/:id', function(req, res) {
+  upload(req, res, (err) => {
+    if (err){
+      console.log(err);
+    }
+    else{
       
-//   async function connect() {
-//     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-//     .then(dbRes => {
-//       const newImage = new Shot({
-//         id: req.params.id,
-//         name: req.body.name,
-//         image: {
-//           data: req.file.filename,
-//           contentType: 'image/png'
-//         }
-//       })
-//       newImage.save()
-//       .then(image => {
-//         res.send("success!")
-//       })
-//     })
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(dbRes => {
+      const newImage = new Shot({
+        id: req.params.id,
+        name: req.body.name,
+        image: {
+          data: req.file.filename,
+          contentType: 'image/png'
+        }
+      })
+      newImage.save()
+      .then(image => {
+        res.send("success!")
+      })
+    })
     
-//   }
-//    connect();
+  }
+   connect();
 
-//   }
-// })
+  }
+})
   
   
-// });
+});
 
 
-// // getShot
-// app.get('/getShot/:id', function(req, res, next) {
-//   const id = req.params.id ;
+// getShot
+app.get('/getShot/:id', function(req, res, next) {
+  const id = req.params.id ;
   
-//   async function connect() {
-//     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-//     .then(() => {
-//       Shot.findOne({id: id})
-//   .then(shot => {
-//     console.log(shot)
-//     res.send(shot);
-//   })
-//     })
-//   }
-//    connect();
-// });
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Shot.findOne({id: id})
+  .then(shot => {
+    console.log(shot)
+    res.send(shot);
+  })
+    })
+  }
+   connect();
+});
 
 
 // Initialize server
