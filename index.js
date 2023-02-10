@@ -1,12 +1,26 @@
 // Add Express
 const express = require("express");
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const multer = require('multer');
 // Initialize Express
 const app = express();
 app.use(express.json());
 const mongoose = require('mongoose');
 const Bot = require('./models/bot');
+const Shot = require('./models/image')
 
+
+// multer setup
+const storage   = multer.diskStorage({
+  destination: "images",
+  filename: (req, file, callback) => {
+    callback(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage:storage
+}).single("testImage");
 
 // body parser for the post requests
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -158,14 +172,65 @@ app.get('/getResponse/:id', function(req, res, next) {
     res.send(bot.response);
   })
     })
+  }
+   connect();
+});
+
+
+
+// screenshot
+
+// addShot
+app.post('/addShot/:id', function(req, res) {
+  upload(req, res, (err) => {
+    if (err){
+      console.log(err);
+    }
+    else{
+      
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(dbRes => {
+      const newImage = new Shot({
+        id: req.params.id,
+        name: req.body.name,
+        image: {
+          data: req.file.filename,
+          contentType: 'image/png'
+        }
+      })
+      newImage.save()
+      .then(image => {
+        res.send("success!")
+      })
+    })
     
   }
    connect();
 
+  }
+})
+  
   
 });
 
 
+// getShot
+app.get('/getShot/:id', function(req, res, next) {
+  const id = req.params.id ;
+  
+  async function connect() {
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => {
+      Shot.findOne({id: id})
+  .then(shot => {
+    console.log(shot)
+    res.send(shot);
+  })
+    })
+  }
+   connect();
+});
 // Initialize server
 app.listen(5000, () => {
   console.log("Running on port 5000.");
