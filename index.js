@@ -119,6 +119,7 @@ app.get('/bot/:id', function(req, res, next) {
   .then(bot => {
     Shot.findOne({id: id})
   .then(shot => {
+    console.log(image.image.data.toString('base64'))
     res.render('bot',{ title: 'bot', "bot": bot , "image": shot});
   })
     
