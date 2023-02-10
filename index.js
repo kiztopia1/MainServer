@@ -1,7 +1,7 @@
 // Add Express
 const express = require("express");
 const bodyParser = require('body-parser');
-// const multer = require('multer');
+const multer = require('multer');
 // Initialize Express
 const app = express();
 app.use(express.json());
