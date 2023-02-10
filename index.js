@@ -117,7 +117,7 @@ app.get('/bot/:id', function(req, res, next) {
     .then(() => {
       Bot.findOne({id: id})
   .then(bot => {
-    res.json({"response": bot})
+    res.render('bot',{ title: 'bot', "bot": bot });
     })
     })
     
