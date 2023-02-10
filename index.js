@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const multer = require('multer');
+var fs = require('fs');
 var path = require('path');
 // Initialize Express
 const app = express();
@@ -119,8 +120,9 @@ app.get('/bot/:id', function(req, res, next) {
   .then(bot => {
     Shot.findOne({id: id})
   .then(shot => {
-    console.log(image.image.data.toString('base64'))
+    console.log(shot.image.data.toString('base64'))
     res.render('bot',{ title: 'bot', "bot": bot , "image": shot});
+    // te
   })
     
     })
@@ -208,7 +210,7 @@ app.post('/addShot/:id', function(req, res) {
         id: req.params.id,
         name: req.body.name,
         image: {
-          data: req.file.filename,
+          data: fs.readFileSync(path.join(__dirname + '../../../tmp/' + req.file.filename)),
           contentType: 'image/png'
         }
       })
