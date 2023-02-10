@@ -13,7 +13,7 @@ const Shot = require('./models/image')
 
 // multer setup
 const storage   = multer.diskStorage({
-  destination: "tmp",
+  destination: "../../tmp",
   filename: (req, file, callback) => {
     callback(null, file.originalname);
   },
