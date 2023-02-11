@@ -204,8 +204,7 @@ app.post('/addShot/:id', function(req, res) {
     else{
       
   async function connect() {
-    console.log(req.body.name)
-    console.log(req.file)
+    
     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
     .then(dbRes => {
       const newImage = new Shot({
@@ -218,6 +217,8 @@ app.post('/addShot/:id', function(req, res) {
       })
       newImage.save()
       .then(image => {
+        console.log('added')
+        
         res.send("success!")
       })
     })
