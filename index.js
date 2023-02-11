@@ -218,6 +218,42 @@ app.post('/addShot/:id', function(req, res) {
       newImage.save()
       .then(image => {
         console.log('added')
+
+        res.send("success!")
+      })
+    })
+    
+  }
+   connect();
+
+  }
+})
+  
+  
+});
+
+// updateShot
+app.post('/updateShot/:id', function(req, res) {
+  upload(req, res, (err) => {
+    if (err){
+      console.log(err);
+    }
+    else{
+      
+  async function connect() {
+    
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(dbRes => {
+      Shot.findOneAndUpdate({id: req.params.id},{
+        
+        image: {
+          data: fs.readFileSync(path.join(__dirname + '../../../tmp/' + req.file.filename)),
+          contentType: 'image/png'
+        }
+      })
+      
+      .then(image => {
+        console.log('added')
         
         res.send("success!")
       })
