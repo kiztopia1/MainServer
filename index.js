@@ -124,24 +124,24 @@ app.post('/addResponse/:id', function(req, res, next) {
 
   })
 
+  upload()
 
 
+  // console.log(req.file)
+  // async function connect() {
+  //   await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+  //   .then(() => {
+  //     Bot.findOneAndUpdate({id: id}, {response: req.body.response})
+  // .then(() => {
 
-  console.log(req.file)
-  async function connect() {
-    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
-    .then(() => {
-      Bot.findOneAndUpdate({id: id}, {response: req.body.response})
-  .then(() => {
-
-    res.send("success");
-  })
-    })
+  //   res.send("success");
+  // })
+  //   })
     
-  }
-   connect();
+  // }
+  //  connect();
 
-  res.end()
+  // res.end()
 });
 
 //bot
