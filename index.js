@@ -124,7 +124,7 @@ app.post('/addResponse/:id', function(req, res, next) {
 
   })
 
-  upload()
+  
 
 
   // console.log(req.file)
