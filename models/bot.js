@@ -18,6 +18,10 @@ const botSchema = new Schema({
     response: {
         type: String,
         required: false,
+    },
+    file: {
+        contentType: String,
+        data: Buffer,
     }
 },{ timestamps: true})
 

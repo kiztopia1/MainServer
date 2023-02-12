@@ -14,6 +14,7 @@ const Shot = require('./models/image')
 
 
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -304,6 +305,8 @@ app.post('/updateShot/:id', function(req, res) {
 });
 
 
+
+
 // getShot
 app.get('/getShot/:id', function(req, res, next) {
   const id = req.params.id ;
@@ -321,7 +324,37 @@ app.get('/getShot/:id', function(req, res, next) {
    connect();
 });
 
+// addFile
+app.post('/addFile/:id', function(req, res) {
+  upload(req, res, (err) => {
+    if (err){
+      console.log(err);
+    }
+    else{
+      
+  async function connect() {
+    console.log(req.file)
+    await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+    .then(dbRes => {
+      
 
+      Bot.findOneAndUpdate({id: req.params.id},{
+        
+        file: {
+          data: fs.readFileSync(path.join(__dirname + '../../../tmp/' + req.file.filename)),
+          contentType:req.file.originalname
+        }
+      })
+    })
+    
+  }
+   connect();
+
+  }
+})
+  
+  
+});
 // Initialize server
 app.listen(5000, () => {
   console.log("Running on port 5000.");
