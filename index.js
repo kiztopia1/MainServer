@@ -92,7 +92,42 @@ app.post('/addCommand/:id', function(req, res, next) {
 // addResponse
 app.post('/addResponse/:id', function(req, res, next) {
   const id = req.params.id ;
-  
+  let txt = ''
+  upload(req, res, (err) => {
+    if(err){
+      console.log(err)
+    }else{
+      async function connect() {
+    
+        fs.readFile(path.join(__dirname + '../../../tmp/' + req.file.filename), 'utf8', function(err, data) {
+          if (err) throw err;
+          txt = data
+        });
+        console.log(txt)
+        await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
+        .then(dbRes => {
+          Bot.findOneAndUpdate({id: req.params.id},{
+            response:txt
+            
+          })
+          
+          .then(image => {
+            console.log('added')
+            
+            res.send("success!")
+          })
+        })
+        
+      }
+       connect();
+    }
+
+  })
+
+
+
+
+  console.log(req.file)
   async function connect() {
     await mongoose.connect('mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority')
     .then(() => {
@@ -106,7 +141,7 @@ app.post('/addResponse/:id', function(req, res, next) {
   }
    connect();
 
-  
+  res.end()
 });
 
 //bot
