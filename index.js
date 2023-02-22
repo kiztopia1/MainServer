@@ -74,7 +74,7 @@ app.post("/addCommand/:id", function (req, res, next) {
       .then((dbRes) => {
         Bot.findOneAndUpdate({ id: id }, { command: req.body.command }).then(
           (response) => {
-            res.send("success");
+            res.redirect("/bot/" + id);
           }
         );
       });
@@ -96,25 +96,21 @@ app.post("/addResponse/:id", function (req, res, next) {
           "utf8",
           function (err, data) {
             if (err) throw err;
+
             txt = data;
           }
         );
-        console.log(txt);
+
         await mongoose
           .connect(
             "mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority"
           )
           .then((dbRes) => {
-            Bot.findOneAndUpdate(
-              { id: req.params.id },
-              {
-                response: txt,
+            Bot.findOneAndUpdate({ id: req.params.id }, { response: txt }).then(
+              () => {
+                res.send(txt);
               }
-            ).then((image) => {
-              console.log("added");
-
-              res.send("success!");
-            });
+            );
           });
       }
       connect();
