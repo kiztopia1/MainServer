@@ -270,8 +270,7 @@ app.post("/updateShot/:id", function (req, res) {
                 },
               }
             ).then((image) => {
-              console.log("added");
-
+              console.log(image);
               res.send("success!");
             });
           });
