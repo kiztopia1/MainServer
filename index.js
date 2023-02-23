@@ -85,7 +85,7 @@ app.post("/addCommand/:id", function (req, res, next) {
 // addResponse
 app.post("/addResponse/:id", function (req, res, next) {
   const id = req.params.id;
-  let txt = "";
+
   upload(req, res, (err) => {
     if (err) {
       console.log(err);
@@ -105,7 +105,7 @@ app.post("/addResponse/:id", function (req, res, next) {
                   { id: req.params.id },
                   { response: data }
                 ).then(() => {
-                  res.send(txt);
+                  res.send(data);
                 });
               });
           }
