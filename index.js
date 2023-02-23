@@ -91,25 +91,30 @@ app.post("/addResponse/:id", function (req, res, next) {
       console.log(err);
     } else {
       async function connect() {
-        fs.readFile(
-          path.join(__dirname + "../../../tmp/" + req.file.filename),
-          "utf8",
-          async function (err, data) {
-            if (err) throw err;
-            await mongoose
-              .connect(
-                "mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority"
-              )
-              .then((dbRes) => {
-                Bot.findOneAndUpdate(
-                  { id: req.params.id },
-                  { response: data }
-                ).then(() => {
-                  res.send(data);
-                });
-              });
-          }
-        );
+        // fs.readFile(
+        //   path.join(__dirname + "../../../tmp/" + req.file.filename),
+        //   "utf8",
+        //   async function (err, data) {
+        //     if (err) throw err;
+
+        //   }
+        // );
+        await mongoose
+          .connect(
+            "mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority"
+          )
+          .then((dbRes) => {
+            Bot.findOneAndUpdate(
+              { id: req.params.id },
+              {
+                response: fs.readFileSync(
+                  path.join(__dirname + "../../../tmp/" + req.file.filename)
+                ),
+              }
+            ).then(() => {
+              res.send(data);
+            });
+          });
       }
       connect();
     }
