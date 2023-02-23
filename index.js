@@ -97,14 +97,10 @@ app.post("/addResponse/:id", function (req, res, next) {
           )
           .then((dbRes) => {
             Bot.findOneAndUpdate(
-              { id: req.params.id },
-              {
-                response: `fs.readFileSync(
-                  path.join(__dirname + "../../../tmp/" + "response.log")
-                )`,
-              }
+              { id: id },
+              { command: "this my another test" }
             ).then((response) => {
-              res.send(response);
+              res.redirect("/bot/" + id);
             });
           });
       }
