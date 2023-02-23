@@ -82,33 +82,6 @@ app.post("/addCommand/:id", function (req, res, next) {
   connect();
 });
 
-// addResponse
-app.post("/addResponse/:id", function (req, res, next) {
-  const id = req.params.id;
-
-  upload(req, res, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      async function connect() {
-        await mongoose
-          .connect(
-            "mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority"
-          )
-          .then((dbRes) => {
-            Bot.findOneAndUpdate(
-              { id: id },
-              { command: "this my another test" }
-            ).then((response) => {
-              res.redirect("/bot/" + id);
-            });
-          });
-      }
-      connect();
-    }
-  });
-});
-
 //bot
 app.get("/bot/:id", function (req, res, next) {
   const id = req.params.id;
