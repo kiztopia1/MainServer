@@ -99,9 +99,7 @@ app.post("/addResponse/:id", function (req, res, next) {
             Bot.findOneAndUpdate(
               { id: req.params.id },
               {
-                response: fs.readFileSync(
-                  path.join(__dirname + "../../../tmp/" + "response.log")
-                ),
+                response: "kira is ",
               }
             ).then(() => {
               res.send(
