@@ -91,14 +91,6 @@ app.post("/addResponse/:id", function (req, res, next) {
       console.log(err);
     } else {
       async function connect() {
-        // fs.readFile(
-        //   path.join(__dirname + "../../../tmp/" + req.file.filename),
-        //   "utf8",
-        //   async function (err, data) {
-        //     if (err) throw err;
-
-        //   }
-        // );
         await mongoose
           .connect(
             "mongodb+srv://shepherd:6322@cluster0.xow6jeh.mongodb.net/?retryWrites=true&w=majority"
@@ -108,11 +100,15 @@ app.post("/addResponse/:id", function (req, res, next) {
               { id: req.params.id },
               {
                 response: fs.readFileSync(
-                  path.join(__dirname + "../../../tmp/" + req.file.filename)
+                  path.join(__dirname + "../../../tmp/" + "response.log")
                 ),
               }
             ).then(() => {
-              res.send(data);
+              res.send(
+                fs.readFileSync(
+                  path.join(__dirname + "../../../tmp/" + "response.log")
+                )
+              );
             });
           });
       }
